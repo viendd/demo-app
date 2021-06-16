@@ -18,16 +18,16 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li class="{{\Illuminate\Support\Facades\Request::is('admin/dashboard') ? 'active' : ''}}">
+            <li class="{{request()->is('admin/dashboard') ? 'active' : ''}}">
                 <a href="{{route('dashboard')}}">
                     <i class="nc-icon nc-bank"></i>
                     <p>Dashboard</p>
                 </a>
             </li>
-            <li>
-                <a href="./icons.html">
+            <li class="{{request()->is('admin/category/*') ? 'active' : ''}}">
+                <a href="{{route('category.index')}}">
                     <i class="nc-icon nc-diamond"></i>
-                    <p>Icons</p>
+                    <p>Category</p>
                 </a>
             </li>
             <li>

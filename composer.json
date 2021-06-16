@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "spatie/laravel-permission": "^4.0",
+        "tuananhnva/laravel-repository": "^0.1.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
@@ -46,7 +47,11 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Libraries/constants.php",
+            "app/Libraries/helpers.php"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

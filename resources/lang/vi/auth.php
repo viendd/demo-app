@@ -16,5 +16,6 @@ return [
     'failed' => 'Thông tin đăng nhập không chính xác',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'problem_msg' => 'Có lỗi xảy ra'
+    'problem_msg' => 'Có lỗi xảy ra',
+    'forgot_password' => 'Quên mật khẩu'
 ];
