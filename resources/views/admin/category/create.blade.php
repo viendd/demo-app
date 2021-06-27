@@ -25,7 +25,10 @@
                                     <select class="js-example-basic-multiple form-control" name="parent_id">
                                         <option value="0">-- {{__('category.parent_id')}} --</option>
                                         @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                            <option value="{{$category->id}}"><b>{{$category->name}}</b></option>
+                                            @foreach($category->children as $children)
+                                                <option disabled value="{{$children->id}}">-- {{$children->name}}</option>
+                                            @endforeach
                                         @endforeach
                                     </select>
                                 </div>

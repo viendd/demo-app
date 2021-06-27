@@ -28,6 +28,13 @@ class CategoryApiController extends Controller
                 'message' => 'Not found'
             ]);
         }
+        if ($category->children->count()){
+            return response()->json([
+                'code' => 400,
+                'message' => 'Bạn không thể xóa danh mục mà đang chứa danh mục con',
+                'type' => 'category'
+            ]);
+        }
 
         $category->delete();
         return response()->json([

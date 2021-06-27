@@ -6,33 +6,33 @@ interface BaseRepositoryInterface
 {
     public function get();
 
-    public function find();
+    public function find($id, $columns = ['*']);
 
     public function findOrFail($id);
 
-    public function where();
+    public function where($condition, $withs = []);
 
-    public function whereIn();
+    public function whereIn($column, $array);
 
-    public function whereNotIn();
+    public function whereNotIn($column, $array);
 
     public function first();
 
     public function last();
 
-    public function load();
+    public function load($load);
 
     public function paginator();
 
-    public function orderBy();
+    public function orderBy($column, $direction);
 
-    public function limit();
+    public function limit($offset);
 
-    public function store();
+    public function store($data);
 
-    public function update();
+    public function update($id, $data);
 
-    public function delete();
+    public function delete($id);
 
     public function totalRecord();
 

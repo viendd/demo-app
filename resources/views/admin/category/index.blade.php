@@ -1,5 +1,7 @@
 @extends('app')
-
+@section('title')
+    Category
+@endsection
 @section('content')
     <div class="content">
         <div class="row">
@@ -10,15 +12,6 @@
                         <div class="add_category">
                             <a href="{{route('category.create')}}" class="btn btn-primary">Thêm mới</a>
                         </div>
-                        @php
-                            $success = session('message_success');
-                        @endphp
-                        @if($success)
-                            <div class="alert alert-success alert-dismissible fade show">
-                                {{$success}}
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            </div>
-                        @endif
                     </div>
 
                     <div class="card-body ">
@@ -44,25 +37,34 @@
                                     <a data-id="{{$category->id}}" class="btn btn-danger" onclick="showConfirm(this)">Xóa</a>
                                 </td>
                             </tr>
+                                @foreach($category->children as $children)
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>{{$children->name}}</td>
+                                        <td>{{$children->slug}}</td>
+                                        <td>{{$children->parent ? $children->parent->name : 'Danh mục cha'}}</td>
+                                        <td>
+                                            <a href="{{route('category.edit', ['id' => $children->id])}}" class="btn btn-border">Sửa</a>
+                                            <a data-id="{{$children->id}}" class="btn btn-danger" onclick="showConfirm(this)">Xóa</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @endforeach
                             </tbody>
                         </table>
                     </div>
-                    @include('components.paginate', ['totalPage' => $categories->lastPage(), 'currentPage' => $categories->currentPage()])
-                    <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            <i class="fa fa-history"></i> Updated 3 minutes ago
-                        </div>
-                    </div>
+{{--                    @include('components.paginate', ['totalPage' => $categories->lastPage(), 'currentPage' => $categories->currentPage(), 'route' => route('category.index')])--}}
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
-<script>
-    function showConfirm(item){
-        JS.modalConfirmDelete($(item).attr("data-id"), '/admin/category/delete/'+$(item).attr("data-id"), 'POST');
-    }
-</script>
+@section('js')
+    <script>
+        function showConfirm(item){
+            JS.modalConfirmDelete($(item).attr("data-id"), '/admin/category/delete/'+$(item).attr("data-id"), 'POST');
+        }
+    </script>
+@endsection
+

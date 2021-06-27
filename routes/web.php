@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,12 @@ Route::group([
         Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
         Route::post('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+    });
+
+    Route::group([
+        'prefix' => 'product',
+    ], function (){
+        Route::get('/', [ProductController::class, 'index'])->name('admin.product.index');
     });
 
 });

@@ -24,13 +24,13 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $categories = $this->categoryRepository->active()->paginator(PER_PAGE, ['*'], $request->input('page'));
+        $categories = $this->categoryRepository->getCategoriesHierarchical(null, 'list');
         return view('admin.category.index')->with(compact('categories'));
     }
 
     public function create()
     {
-        $categories = $this->categoryRepository->active()->get();
+        $categories = $this->categoryRepository->getCategoriesHierarchical();
         return view('admin.category.create')->with(compact('categories'));
     }
 
@@ -40,8 +40,11 @@ class CategoryController extends Controller
         $category = $this->categoryRepository->store($request->all());
         if($category){
             $request->session()->flash('message_success', 'Thêm mới thành công');
-            return redirect()->route('category.index');
+        }else{
+            $request->session()->flash('message_error', 'Có lỗi xảy ra. Xin vui lòng thử lại');
         }
+        return redirect()->route('category.index');
+
     }
 
     public function edit($id)
@@ -51,7 +54,7 @@ class CategoryController extends Controller
             return abort(404);
         }
 
-        $categories = $this->categoryRepository->whereNotIn('id', [$id])->active()->get();
+        $categories = $this->categoryRepository->getCategoriesHierarchical($id);
         return view('admin.category.edit')->with(compact('categories', 'category'));
     }
 

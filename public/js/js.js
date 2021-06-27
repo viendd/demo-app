@@ -21,9 +21,7 @@ var JS = (function (jQuery){
                     .done(function (res){
                         if(res.code === 200){
                             Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
+                                'Đã xóa thành công!', "", "success"
                             )
                             $('.swal2-actions .swal2-confirm').click(function (){
                               location.reload();
@@ -32,8 +30,13 @@ var JS = (function (jQuery){
                         if(res.code === 404){
                             Swal.fire(
                                 'Not found!',
-                                'Fail'
+                                'Fail',
+                                'error'
                             )
+                        }
+
+                        if (res.code === 400){
+                            Swal.fire(res.message, "", 'error')
                         }
 
                     })

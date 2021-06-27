@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>
-        Paper Dashboard 2 by Creative Tim
+        @yield('title', 'FamilyHome')
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -21,7 +21,7 @@
     <link href="{{asset('template/assets/demo/demo.css')}}" rel="stylesheet" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     @yield('css')
 </head>
 
@@ -37,7 +37,9 @@
     </div>
 </div>
 <!--   Core JS Files   -->
-<script src="{{asset('template/assets/js/core/jquery.min.js')}}"></script>
+<script src="{{asset('template/assets/js/core/jquery-3.6.0.min.js')}}"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js">
+
 <script src="{{asset('template/assets/js/core/popper.min.js')}}"></script>
 <script src="{{asset('template/assets/js/core/bootstrap.min.js')}}"></script>
 <script src="{{asset('template/assets/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
@@ -53,6 +55,19 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @yield('js')
 <script src="{{ asset('js/js.js') }}"></script>
+
+<script>
+    $(document).ready(function(){
+        let notificationSuccess = '{{session('message_success')}}';
+        if (notificationSuccess){
+            toastr.success(notificationSuccess)
+        }
+        let notificationError = '{{session('message_error')}}';
+        if (notificationError){
+            toastr.warning(notificationError)
+        }
+    });
+</script>
 </body>
 
 </html>

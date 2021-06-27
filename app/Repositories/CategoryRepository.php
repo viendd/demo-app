@@ -11,9 +11,23 @@ class CategoryRepository extends BaseRepository
         parent::__construct($category);
     }
 
-    public function active(): CategoryRepository
+    public function getCategoriesHierarchical($id = null, $page = null)
     {
-         $this->query->where('active', Category::ACTIVE);
-         return $this;
+         return $this->query
+             ->when(!$page, function ($q){
+                 $q->active();
+             })
+             ->when($id, function ($q) use ($id){
+                $q->whereNotIn('id', [$id]);
+            })->getParent()->with(['children' => function($q) use ($id){
+                $q->when($id, function ($q) use ($id){
+                    $q->whereNotIn('id', [$id]);
+                });
+             }])->get();
+    }
+
+    public function getListPaginator()
+    {
+        return $this->query->orderBy('created_at', 'DESC')->paginate(PER_PAGE);
     }
 }

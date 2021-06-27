@@ -2,12 +2,16 @@
     <div class="pagination">
         <ul>
             @for($i = 1; $i <= $totalPage; $i++)
-                <li class="{{$currentPage == $i ? 'active' : ''}}"><a href="{{route('category.index'). '?page='.$i}}">{{$i}}</a></li>
+                <li onclick="loadPage('{{$route}}', '{{$i}}')" class="{{$currentPage == $i ? 'active' : ''}}"><a>{{$i}}</a></li>
             @endfor
         </ul>
     </div>
 @endif
-
+<script>
+    function loadPage(route, page){
+        window.location = route+'?page='+page
+    }
+</script>
 <style>
     .pagination{
         float: right;
@@ -24,6 +28,7 @@
         margin-right: 10px;
         background-color: gainsboro;
         padding-top: 5px;
+        cursor: pointer;
     }
     .pagination li.active {
         background-color: black !important;

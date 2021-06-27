@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Thêm mới danh mục</h3>
+                        <h3>Sửa danh mục</h3>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{route('category.update', ['id' => $category->id])}}">
@@ -27,6 +27,9 @@
                                         <option value="0">-- {{__('category.parent_id')}} --</option>
                                         @foreach($categories as $item)
                                             <option value="{{$item->id}}" {{$category->parent_id == $item->id ? 'selected' : ''}}>{{$item->name}}</option>
+                                            @foreach($item->children as $children)
+                                                <option disabled value="{{$children->id}}">-- {{$children->name}}</option>
+                                            @endforeach
                                         @endforeach
                                     </select>
                                 </div>
@@ -41,7 +44,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">{{__('category.add')}}</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
                         </form>
                     </div>
                 </div>

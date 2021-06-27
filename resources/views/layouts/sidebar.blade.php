@@ -24,16 +24,16 @@
                     <p>Dashboard</p>
                 </a>
             </li>
-            <li class="{{request()->is('admin/category/*') ? 'active' : ''}}">
+            <li class="{{request()->is('admin/category*') ? 'active' : ''}}">
                 <a href="{{route('category.index')}}">
                     <i class="nc-icon nc-diamond"></i>
                     <p>Category</p>
                 </a>
             </li>
-            <li>
-                <a href="./map.html">
+            <li class="{{request()->is('admin/product*') ? 'active' : ''}}">
+                <a href="{{route('admin.product.index')}}">
                     <i class="nc-icon nc-pin-3"></i>
-                    <p>Maps</p>
+                    <p>Product</p>
                 </a>
             </li>
             <li class="{{request()->is('/notifications') ? 'active' : ''}}">
