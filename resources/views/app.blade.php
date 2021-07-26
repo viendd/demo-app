@@ -53,8 +53,13 @@
 <script src="{{asset('template/assets/js/paper-dashboard.min.js?v=2.0.1')}}" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{asset('template/assets/demo/demo.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-@yield('js')
+
 <script src="{{ asset('js/js.js') }}"></script>
+
+@yield('js')
+
+<script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+
 
 <script>
     $(document).ready(function(){
@@ -66,8 +71,31 @@
         if (notificationError){
             toastr.warning(notificationError)
         }
+
+        $('.js-example-basic-multiple').select2();
+    });
+
+    function showConfirm(item, url, method){
+        JS.modalConfirmDelete($(item).attr("data-id"), url, method);
+    }
+
+    CKEDITOR.replace('description', {
+        {{--filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",--}}
+        {{--filebrowserUploadMethod: 'form'--}}
     });
 </script>
+
+<style>
+    .feedback-error{
+        color: red;
+    }
+    .border-error{
+        border: 1px solid red;
+    }
+    .select2-container .select2-selection--single{
+        height: 38px !important;
+    }
+</style>
 </body>
 
 </html>

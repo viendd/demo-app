@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Ajax\CategoryApiController;
+use App\Http\Controllers\Admin\Ajax\ProductApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,12 @@ Route::group([
         'prefix' => 'category',
     ], function (){
         Route::post('/delete/{id}', [CategoryApiController::class, 'delete'])->name('category.delete');
+    });
+
+    Route::group([
+        'prefix' => 'product',
+    ], function (){
+        Route::post('/delete/{id}', [ProductApiController::class, 'delete'])->name('admin.product.delete');
     });
 
 });

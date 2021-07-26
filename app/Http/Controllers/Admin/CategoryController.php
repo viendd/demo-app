@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\EditCategoryRequest;
+use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -71,4 +72,11 @@ class CategoryController extends Controller
             return redirect()->route('category.index');
         }
     }
+
+
+//    //Implicit Binding Model
+//    public function show(Category $category)
+//    {
+//        return $category;
+//    }
 }

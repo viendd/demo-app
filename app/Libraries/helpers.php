@@ -108,3 +108,42 @@ if (! function_exists('round_star')){
         return $number;
     }
 }
+
+
+if (!function_exists('inValidInput')){
+    function inValidInput($key, $errors){
+        return $errors->has($key);
+    }
+}
+
+if (!function_exists('getErrorInput')){
+    function getErrorValInput($key, $errors){
+        return $errors->first($key);
+    }
+}
+
+if (!function_exists('renderTemplateError')){
+    function renderTemplateError($key, $errors): string
+    {
+        if (inValidInput($key, $errors)){
+            return '<div class="feedback-error">' . getErrorValInput($key, $errors) . '</div>';
+        }
+        return '';
+    }
+}
+
+if (!function_exists('getOldErrorInput')){
+    function getOldErrorInput($key, $defaultValue = ''){
+        return old($key) ?? $defaultValue;
+    }
+}
+
+
+if (!function_exists('formatMoneyComma')) {
+    function formatMoneyComma($price, $currency)
+    {
+
+        $price = str_replace('.', '', (int)$price);
+        return number_format((float)$price, 0, '.', ',') . $currency;
+    }
+}

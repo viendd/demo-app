@@ -38,12 +38,19 @@ Route::group([
         Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
         Route::post('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+//        Route::get('/show/{id}', [CategoryController::class, 'show'])->name('category.show')->missing(function () {
+//            // handler  logic
+//        });;
     });
 
     Route::group([
         'prefix' => 'product',
     ], function (){
         Route::get('/', [ProductController::class, 'index'])->name('admin.product.index');
+        Route::get('/create', [ProductController::class, 'create'])->name('admin.product.create');
+        Route::post('/store', [ProductController::class, 'store'])->name('admin.product.store');
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('admin.product.edit');
+        Route::post('/update/{id}', [ProductController::class, 'update'])->name('admin.product.update');
     });
 
 });

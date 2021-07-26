@@ -11,4 +11,9 @@ class ProductRepository extends BaseRepository
     {
         parent::__construct($model);
     }
+
+    public function getListProductForAdmin(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return $this->with('category', 'medias')->paginator(10, ['*'], request()->query('page'));
+    }
 }

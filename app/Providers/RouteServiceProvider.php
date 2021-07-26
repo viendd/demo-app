@@ -35,7 +35,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->configureRateLimiting();
+//        $this->configureRateLimiting();
+
+//        Route::fallback(function () {
+//            // khi route chỉ định không tìm thấy thì sẽ gọi đến fallback
+//            // ở đây sẽ handler xử lí logic xem cần làm gì
+//        });
 
         $this->routes(function () {
             Route::prefix('api')
@@ -58,10 +63,10 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRateLimiting()
-    {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
-        });
-    }
+//    protected function configureRateLimiting()
+//    {
+//        RateLimiter::for('api', function (Request $request) {
+//            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+//        });
+//    }
 }

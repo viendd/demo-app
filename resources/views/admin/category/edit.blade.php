@@ -14,7 +14,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4">{{__('category.name')}}</label>
-                                    <input type="text" name="name" class="form-control {{$errors->has('name') ? 'border-error' : ''}}" id="inputEmail4" placeholder="Sữa bột" value="{{$errors->has('name') ? old('name') : $category->name}}">
+                                    <input type="text" name="name" class="form-control {{$errors->has('name') ? 'border-error' : ''}}" id="inputEmail4" placeholder="Nhập tên tại đây" value="{{$errors->has('name') ? old('name') : $category->name}}">
                                     @if($errors->has('name'))
                                         <div class="feedback-error">
                                             {{$errors->first('name')}}
@@ -51,24 +51,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('css')
-    <style>
-        .feedback-error{
-            color: red;
-        }
-        .border-error{
-            border: 1px solid red;
-        }
-        .select2-container .select2-selection--single{
-            height: 38px !important;
-        }
-    </style>
-@endsection
-@section('js')
-    <script>
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
-    </script>
 @endsection

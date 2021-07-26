@@ -16,7 +16,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="{{asset('login/css/style.css')}}">
 
-    <title>Login #5</title>
+    <title>Login</title>
 </head>
 <body>
 

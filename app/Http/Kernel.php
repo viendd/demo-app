@@ -65,4 +65,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'hasPermission' => HasPermission::class
     ];
+
+//    // order middleware theo 1 thứ tự thực thi cụ thể
+//    protected $middlewarePriority = [
+//
+//    ];
 }

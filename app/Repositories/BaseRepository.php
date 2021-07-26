@@ -100,6 +100,12 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this;
     }
 
+    public function with(... $load): BaseRepository
+    {
+        $this->query->with($load);
+        return $this;
+    }
+
     public function paginator($perPage = 10, array $columns = ['*'], $page = 1): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->query->paginate($perPage, $columns, 'page', $page);

@@ -34,7 +34,7 @@
                                 <td>{{$category->parent ? $category->parent->name : 'Danh mục cha'}}</td>
                                 <td>
                                     <a href="{{route('category.edit', ['id' => $category->id])}}" class="btn btn-border">Sửa</a>
-                                    <a data-id="{{$category->id}}" class="btn btn-danger" onclick="showConfirm(this)">Xóa</a>
+                                    <a data-id="{{$category->id}}" class="btn btn-danger" onclick="showConfirm(this, '{{route('category.delete', ['id' => $category->id])}}', 'POST')">Xóa</a>
                                 </td>
                             </tr>
                                 @foreach($category->children as $children)
@@ -45,7 +45,7 @@
                                         <td>{{$children->parent ? $children->parent->name : 'Danh mục cha'}}</td>
                                         <td>
                                             <a href="{{route('category.edit', ['id' => $children->id])}}" class="btn btn-border">Sửa</a>
-                                            <a data-id="{{$children->id}}" class="btn btn-danger" onclick="showConfirm(this)">Xóa</a>
+                                            <a data-id="{{$children->id}}" class="btn btn-danger" onclick="showConfirm(this, '{{route('category.delete', ['id' => $children->id])}}', 'POST')">Xóa</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -58,13 +58,5 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('js')
-    <script>
-        function showConfirm(item){
-            JS.modalConfirmDelete($(item).attr("data-id"), '/admin/category/delete/'+$(item).attr("data-id"), 'POST');
-        }
-    </script>
 @endsection
 
