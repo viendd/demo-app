@@ -33,6 +33,13 @@ class Category extends Model
         return $query->where('active', self::ACTIVE);
     }
 
+    public function scopeHasProduct($query)
+    {
+        return $query->whereHas('products', function ($q){
+            $q->active();
+        });
+    }
+
     public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
@@ -42,4 +49,10 @@ class Category extends Model
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'id');
+    }
+
 }

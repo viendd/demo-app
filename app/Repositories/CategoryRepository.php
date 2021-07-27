@@ -30,4 +30,17 @@ class CategoryRepository extends BaseRepository
     {
         return $this->query->orderBy('created_at', 'DESC')->paginate(PER_PAGE);
     }
+
+    public function getListCategoryNoPaginator($isHasProduct = false)
+    {
+        return $this->query
+            ->when($isHasProduct, function ($q){
+                $q->hasProduct();
+            })
+            ->where('active', '=', Category::ACTIVE)
+            ->withCount(['products' =>  function ($q){
+                 $q->active();
+            }])
+            ->get();
+    }
 }

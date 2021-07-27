@@ -147,3 +147,11 @@ if (!function_exists('formatMoneyComma')) {
         return number_format((float)$price, 0, '.', ',') . $currency;
     }
 }
+
+
+if (!function_exists('calculatePercentDiscount')){
+    function calculatePercentDiscount($product): int
+    {
+        return ceil((1 - ($product->price_sell / $product->price_marketing)) * 100);
+    }
+}
