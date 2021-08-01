@@ -2492,7 +2492,7 @@ textarea.form-control {
   .ps-shoe .ps-shoe__price {
     display: inline-block;
     position: absolute;
-    top: 5px;
+    top: 20px;
     right: 10px;
     font-family: "Archivo Narrow", sans-serif;
     font-size: 20px;

@@ -57,7 +57,7 @@ function timeAgoVietnam($timestamp){
 
 
 if (!function_exists('formatMoney')) {
-    function formatMoney($price, $currency)
+    function formatMoney($price, $currency): string
     {
 
         $price = str_replace('.', '', (int)$price);
@@ -66,7 +66,7 @@ if (!function_exists('formatMoney')) {
 }
 
 if (!function_exists('formatNumber')) {
-    function formatNumber($number)
+    function formatNumber($number): string
     {
         $price = str_replace('.', '', $number);
         return number_format((float)$price, 0, ',', '.') ;
@@ -140,7 +140,7 @@ if (!function_exists('getOldErrorInput')){
 
 
 if (!function_exists('formatMoneyComma')) {
-    function formatMoneyComma($price, $currency)
+    function formatMoneyComma($price, $currency): string
     {
 
         $price = str_replace('.', '', (int)$price);
@@ -155,3 +155,11 @@ if (!function_exists('calculatePercentDiscount')){
         return ceil((1 - ($product->price_sell / $product->price_marketing)) * 100);
     }
 }
+
+if (!function_exists('isAttributeModelExists')){
+    function isAttributeModelExists(\Illuminate\Database\Eloquent\Model $model): int
+    {
+        return $model->exists;
+    }
+}
+

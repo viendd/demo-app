@@ -46,6 +46,9 @@
 <main class="ps-main">
     @yield('content')
 </main>
+
+@include('client.layouts.subscribe')
+@include('client.layouts.footer')
 <!-- JS Library-->
 <script type="text/javascript" src="{{asset('')}}plugins/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="{{asset('')}}plugins/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -60,7 +63,7 @@
 <script type="text/javascript" src="{{asset('')}}plugins/elevatezoom/jquery.elevatezoom.js"></script>
 <script type="text/javascript" src="{{asset('')}}plugins/Magnific-Popup/dist/jquery.magnific-popup.min.js"></script>
 <script type="text/javascript" src="{{asset('')}}plugins/jquery-ui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx39JFH5nhxze1ZydH-Kl8xXM3OK4fvcg&amp;region=GB"></script><script type="text/javascript" src="plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx39JFH5nhxze1ZydH-Kl8xXM3OK4fvcg&amp;region=GB"></script><script type="text/javascript" src="{{asset('')}}plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
 <script type="text/javascript" src="{{asset('')}}plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
 <script type="text/javascript" src="{{asset('')}}plugins/revolution/js/extensions/revolution.extension.video.min.js"></script>
 <script type="text/javascript" src="{{asset('')}}plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
@@ -70,5 +73,14 @@
 <script type="text/javascript" src="{{asset('')}}plugins/revolution/js/extensions/revolution.extension.actions.min.js"></script>
 <!-- Custom scripts-->
 <script type="text/javascript" src="{{asset('')}}js/main.js"></script>
+
+<script src="{{ asset('js/js.js') }}"></script>
+@yield('js')
+
+<script>
+    function redirectUrl(key, value){
+        window.location = JS.updateQueryStringParameter(window.location.href, key, value)
+    }
+</script>
 </body>
 </html>

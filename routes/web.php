@@ -61,4 +61,16 @@ Route::group([
 });
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// route client
+
+Route::name('client.')->group(function (){
+//    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('product/{product:slug}', [\App\Http\Controllers\Client\ProductController::class, 'show'])->name('product.show');
+
+    Route::group([
+        'prefix' => 'category'
+    ], function (){
+        Route::get('filter-product', [\App\Http\Controllers\Client\ProductController::class, 'filterProduct'])->name('product.filterProduct');
+        Route::get('{category:slug}', [\App\Http\Controllers\Client\ProductController::class, 'getProductsByCategory'])->name('product.productsByCategory');
+    });
+});

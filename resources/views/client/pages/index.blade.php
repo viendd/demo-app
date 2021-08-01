@@ -8,7 +8,6 @@
     @include('client.layouts.home-testimonial')
 
     @include('client.layouts.home_blog')
-    @include('client.layouts.subscribe')
-    @include('client.layouts.footer')
+
 
 @endsection

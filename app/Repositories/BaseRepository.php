@@ -123,6 +123,24 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this;
     }
 
+    public function queryRelationship($typeQueryRelationship, $nameRelationship, $callback = null): BaseRepository
+    {
+        if ($callback){
+            $this->query->{$typeQueryRelationship}($nameRelationship, $callback);
+        }else{
+            $this->query->{$typeQueryRelationship}($nameRelationship);
+        }
+
+        return $this;
+    }
+
+
+    public function whereBetween($column, array $array): BaseRepository
+    {
+        $this->query->whereBetween($column, $array);
+        return $this;
+    }
+
     /**
      * @param $data
      * @return mixed

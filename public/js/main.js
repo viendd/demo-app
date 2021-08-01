@@ -549,19 +549,28 @@
                 slide: function(event, ui) {
                     var $this = $(this),
                         values = ui.values;
-
-                    min.text('$' + values[0]);
-                    max.text('$' + values[1]);
+                    renderRangePriceSelect(min, max, values)
                 }
             });
 
             var values = el.slider("option", "values");
-            min.text('$' + values[0]);
-            max.text('$' + values[1]);
+            renderRangePriceSelect(min, max, values)
         }
         else {
             return false;
         }
+    }
+
+    function renderRangePriceSelect(min, max, values){
+        min.text(formatCurrencyComma(values[0]) + 'đ');
+        min.attr('data-price-min', values[0]);
+
+        max.text(formatCurrencyComma(values[1]) + 'đ');
+        max.attr('data-price-max', values[1]);
+    }
+
+    function formatCurrencyComma(num){
+        return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
     }
 
     function revolution() {

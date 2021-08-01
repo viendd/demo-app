@@ -9,9 +9,9 @@
                     <div class="header__actions"><a href="#">Login & Regiser</a>
                         <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">USD<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#"><img src="images/flag/usa.svg" alt=""> USD</a></li>
-                                <li><a href="#"><img src="images/flag/singapore.svg" alt=""> SGD</a></li>
-                                <li><a href="#"><img src="images/flag/japan.svg" alt=""> JPN</a></li>
+                                <li><a href="#"><img src="{{asset('')}}images/flag/usa.svg" alt=""> USD</a></li>
+                                <li><a href="#"><img src="{{asset('')}}images/flag/singapore.svg" alt=""> SGD</a></li>
+                                <li><a href="#"><img src="{{asset('')}}images/flag/japan.svg" alt=""> JPN</a></li>
                             </ul>
                         </div>
                         <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language<i class="fa fa-angle-down"></i></a>
@@ -29,16 +29,22 @@
     <nav class="navigation">
         <div class="container-fluid">
             <div class="navigation__column left">
-                <div class="header__logo"><a class="ps-logo" href="index.html"><img src="images/logo.png" alt=""></a></div>
+                <div class="header__logo"><a class="ps-logo" href="index.html"><img src="{{asset('')}}images/logo.png" alt=""></a></div>
             </div>
             <div class="navigation__column center">
                 <ul class="main-menu menu">
                     @foreach($categoriesHierarchical as $category)
-                        <li class="menu-item menu-item-has-children dropdown"><a href="#">{{$category->name}}</a>
+                        @php
+                            $routeProductCategory = route('client.product.productsByCategory', ['category' => $category->slug]);
+                        @endphp
+                        <li class="menu-item menu-item-has-children dropdown"><a href="{{$routeProductCategory}}">{{$category->name}}</a>
                             @if($category->children->count() > 0)
                             <ul class="sub-menu">
                                 @foreach($category->children as $children)
-                                    <li class="menu-item"><a href="index.html">{{$children->name}}</a></li>
+                                    @php
+                                        $routeProductCategoryChildren = route('client.product.productsByCategory', ['category' => $children->slug]);
+                                    @endphp
+                                    <li class="menu-item"><a href="{{$routeProductCategoryChildren}}">{{$children->name}}</a></li>
                                 @endforeach
                             </ul>
                             @endif
@@ -55,19 +61,19 @@
                     <div class="ps-cart__listing">
                         <div class="ps-cart__content">
                             <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
-                                <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="images/cart-preview/1.jpg" alt=""></div>
+                                <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="{{asset('')}}images/cart-preview/1.jpg" alt=""></div>
                                 <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html">Amazin’ Glazin’</a>
                                     <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
                                 </div>
                             </div>
                             <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
-                                <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="images/cart-preview/2.jpg" alt=""></div>
+                                <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="{{asset('')}}images/cart-preview/2.jpg" alt=""></div>
                                 <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html">The Crusty Croissant</a>
                                     <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
                                 </div>
                             </div>
                             <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
-                                <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="images/cart-preview/3.jpg" alt=""></div>
+                                <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="{{asset('')}}images/cart-preview/3.jpg" alt=""></div>
                                 <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html">The Rolling Pin</a>
                                     <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
                                 </div>

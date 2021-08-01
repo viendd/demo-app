@@ -59,9 +59,40 @@ var JS = (function (jQuery){
         $(item).val(numberFormat)
     }
 
+    let generateQueryStringFilterProduct = function (categories, prices, brands, sizes){
+        let arrayComponent = [categories, prices, brands, sizes]
+        let arrayStringComponent = ['categories', 'prices', 'brands', 'sizes']
+        let query = '';
+        arrayComponent.forEach((component, index) => {
+            if (component.replace(arrayStringComponent[index] + "=", "")){
+                query += (query === "" ? '?' : '&') + component
+            }
+        })
+
+        return query
+    }
+
+    let updateQueryStringParameter =  function (uri, key, value) {
+        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + value + '$2');
+        }
+        else {
+            return uri + separator + key + "=" + value;
+        }
+    }
+
+    let redirectUrl = function (uri){
+        window.location = uri
+    }
+
     return {
         modalConfirmDelete,
         callAjaxWithOutFormData,
-        formatNumber
+        formatNumber,
+        generateQueryStringFilterProduct,
+        updateQueryStringParameter,
+        redirectUrl
     }
 })($);
