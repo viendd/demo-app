@@ -4,7 +4,7 @@
             <div class="ps-shoe__thumbnail">
                 <div class="ps-badge"><span>New</span></div>
                 @php
-                    $mediaFeature = $product->mediaFeatureFromCollection();
+                    $mediaFeature = $product->mediaFeature;
                     $routeProductDetail = route('client.product.show', ['product' => $product->slug])
                 @endphp
                 <div class="ps-badge ps-badge--sale ps-badge--2nd">
@@ -30,10 +30,13 @@
                     </select>
                 </div>
                 <div class="ps-shoe__detail">
-                    <a class="ps-shoe__name" href="{{$routeProductDetail}}">{{$product->name}}</a>
+                    <div class="name_and_brand">
+                        <a class="ps-shoe__name" href="{{$routeProductDetail}}">{{$product->name}}</a>
+                        <span class="brand">{{$product->brand->name}}</span>
+                    </div>
                     <p class="ps-shoe__categories"><a href="#">{{optional($product->category)->name}}</a>
                         <span class="ps-shoe__price">
-                            <del>{{formatMoney($product->price_marketing, 'đ')}}</del> {{formatMoney($product->price_sell, 'đ')}}
+                            <del>{{formatMoneyComma(sizeProductFirst($product)->price_marketing, 'đ')}}</del> {{formatMoneyComma(sizeProductFirst($product)->price_sell, 'đ')}}
                         </span>
                     </p>
                 </div>
@@ -41,3 +44,12 @@
         </div>
     </div>
 </div>
+
+<style>
+    .brand{
+        float: right;
+    }
+    .ps-shoe .ps-shoe__price{
+        right: 0 !important;
+    }
+</style>

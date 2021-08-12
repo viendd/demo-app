@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Repositories\BrandRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
 use App\Services\UploadService;
@@ -28,12 +29,22 @@ class ProductController extends Controller
      * @var UploadService
      */
     private $uploadService;
+    /**
+     * @var BrandRepository
+     */
+    private $brandRepository;
 
-    public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository, UploadService $uploadService)
+    public function __construct(
+        ProductRepository $productRepository,
+        CategoryRepository $categoryRepository,
+        UploadService $uploadService,
+        BrandRepository $brandRepository
+    )
     {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->uploadService = $uploadService;
+        $this->brandRepository = $brandRepository;
     }
 
     public function index()
@@ -45,8 +56,9 @@ class ProductController extends Controller
     public function create()
     {
         $categories = $this->categoryRepository->getCategoriesHierarchical();
+        $brands = $this->brandRepository->get();
         $codeGenerate = Product::generateCode();
-        return view('admin.product.create')->with(compact('categories', 'codeGenerate'));
+        return view('admin.product.create')->with(compact('categories', 'codeGenerate', 'brands'));
     }
 
     public function setDataInsertImageMulti($arrayPath): array
@@ -62,18 +74,33 @@ class ProductController extends Controller
         return $data;
     }
 
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
         DB::beginTransaction();
         try {
             $product = $this->productRepository->store($request->all());
+
+            //handle size product
+            $specificWeights = $request->input('specific_weight');
+            $specificWeights = is_array($specificWeights) ? $specificWeights : [$specificWeights];
+            $dataProductSize = [];
+            foreach ($specificWeights as $key => $specificWeight){
+                $data = [];
+                $data['size'] = $specificWeight;
+                $data['price_marketing'] = $request->input('price_marketing')[$key];
+                $data['price_sell'] = $request->input('price_sell')[$key];
+                array_push($dataProductSize, $data);
+            }
+            $product->sizes()->createMany($dataProductSize);
+
+            //handle media product
             $pathImageFeature = $this->uploadService->upload($request->file('image_feature'), 'products');
             $arrayPathImageDetail = $this->uploadService->uploadMulti($request->file('image'), 'products');
 
             $product->medias()->create(['collection' => 'feature', 'media' => $pathImageFeature]);
-
             $arrayPathImageDetail = $this->setDataInsertImageMulti($arrayPathImageDetail);
             $product->medias()->createMany($arrayPathImageDetail);
+
             DB::commit();
             $request->session()->flash('message_success', 'Thêm mới sản phẩm thành công');
             return redirect()->route('admin.product.index');

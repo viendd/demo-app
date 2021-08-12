@@ -32,9 +32,6 @@ class ProductController extends Controller
         if (!isAttributeModelExists($product)){
              return view('client.pages.404');
         }
-
-        $product = $product->load(['category', 'medias']);
-
         $category = $this->categoryRepository->find($product->getAttribute('category_id'));
         $productsSameCategory = $this->productRepository->productsSameCategory($category, $product);
         return view('client.pages.product-detail')->with(compact('product', 'productsSameCategory'));

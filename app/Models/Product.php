@@ -14,7 +14,11 @@ class Product extends Model
     const DETAIL = 'detail';
     const ACTIVE = 1;
 
-    protected $fillable = ['name', 'slug', 'code', 'price_marketing', 'price_sell', 'star', 'description', 'view', 'category_id', 'status'];
+    protected $appends = ['mediaFeature', 'mediaDetail'];
+
+    protected $with = ['medias', 'category', 'sizes', 'brand'];
+
+    protected $fillable = ['name', 'slug', 'code', 'star', 'description', 'view', 'category_id', 'status', 'brand_id'];
 
     public function setSlugAttribute()
     {
@@ -31,26 +35,30 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function sizes()
+    {
+        return $this->hasMany(ProductSize::class, 'product_id');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', self::ACTIVE);
     }
 
-    public function mediaFeature()
-    {
-        return $this->medias()->where('collection', self::FEATURE)->first();
-    }
-
-    public function mediaFeatureFromCollection()
+    public function getMediaFeatureAttribute()
     {
         return $this->medias->where('collection', self::FEATURE)->first();
     }
 
-    public function mediaDetailFromCollection()
+    public function getMediaDetailAttribute()
     {
         return $this->medias->where('collection', self::DETAIL)->all();
     }
-
 
     public static function generateCode()
     {

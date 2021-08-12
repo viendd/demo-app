@@ -42,7 +42,7 @@
                                         </td>
                                         <td>
                                             @php
-                                                $targetImage = ($mediaFeature = $product->mediaFeature()) ? url($mediaFeature->media) : asset('images/default_product_image.png')
+                                                $targetImage = ($mediaFeature = $product->mediaFeature) ? url($mediaFeature->media) : asset('images/default_product_image.png')
                                             @endphp
                                             <a target="_blank" href="{{$targetImage}}">
                                                 <img src="{{$targetImage}}" alt="Image feature" class="image_feature" style="width: 250px; height: 250px">

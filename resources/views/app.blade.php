@@ -38,6 +38,7 @@
 </div>
 <!--   Core JS Files   -->
 <script src="{{asset('template/assets/js/core/jquery-3.6.0.min.js')}}"></script>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js">
 
 <script src="{{asset('template/assets/js/core/popper.min.js')}}"></script>
@@ -79,10 +80,16 @@
         JS.modalConfirmDelete($(item).attr("data-id"), url, method);
     }
 
-    CKEDITOR.replace('description', {
+    var editor = CKEDITOR.replace('description', {
         {{--filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",--}}
         {{--filebrowserUploadMethod: 'form'--}}
     });
+    editor.on('required', function( evt ) {
+        editor.showNotification( 'Trường này không được bỏ trống.', 'warning' );
+        evt.cancel();
+    } );
+
+
 </script>
 
 <style>

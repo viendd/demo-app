@@ -12,7 +12,7 @@
     <div class="ps-products-wrap pt-80 pb-80">
         <div class="ps-products" data-mh="product-listing">
             <div class="ps-product-action">
-                @include('client.components.sort_by')
+                @include('client.components.sort_by', ['productCategory' => $productsCategory])
                 @include('client.components.pagination', ['totalPage' => $productsCategory->lastPage(), 'currentPage' => $productsCategory->currentPage(), 'route' => route('client.product.filterProduct')])
             </div>
             <div class="ps-product__columns">
@@ -23,7 +23,7 @@
                 @endforeach
             </div>
             <div class="ps-product-action">
-                @include('client.components.sort_by')
+                @include('client.components.sort_by', ['productCategory' => $productsCategory])
                 @include('client.components.pagination', ['totalPage' => $productsCategory->lastPage(), 'currentPage' => $productsCategory->currentPage(), 'route' => route('client.product.filterProduct')])
             </div>
         </div>

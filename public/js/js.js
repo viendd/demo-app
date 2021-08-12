@@ -56,7 +56,7 @@ var JS = (function (jQuery){
 
     let formatNumber = function(numberString, item) {
         let numberFormat = numberString.replace(/(?!\.)\D/g, "").replace(/(?<=\..*)\./g, "").replace(/(?<=\.\d\d).*/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        $(item).val(numberFormat)
+        item.val(numberFormat)
     }
 
     let generateQueryStringFilterProduct = function (categories, prices, brands, sizes){

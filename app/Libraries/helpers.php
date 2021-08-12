@@ -152,7 +152,8 @@ if (!function_exists('formatMoneyComma')) {
 if (!function_exists('calculatePercentDiscount')){
     function calculatePercentDiscount($product): int
     {
-        return ceil((1 - ($product->price_sell / $product->price_marketing)) * 100);
+        $sizeProductFirst = $product->sizes->first();
+        return ceil((1 - ($sizeProductFirst->price_sell / $sizeProductFirst->price_marketing)) * 100);
     }
 }
 
@@ -160,6 +161,20 @@ if (!function_exists('isAttributeModelExists')){
     function isAttributeModelExists(\Illuminate\Database\Eloquent\Model $model): int
     {
         return $model->exists;
+    }
+}
+
+if (!function_exists('sizeProductFirst')){
+    function sizeProductFirst($product)
+    {
+        return $product->sizes->first();
+    }
+}
+
+if (!function_exists('sizeProductByIdSize')){
+    function sizeProductByIdSize($product, $idSize)
+    {
+        return $product->sizes->where('id', $idSize)->first();
     }
 }
 

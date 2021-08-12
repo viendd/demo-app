@@ -513,10 +513,10 @@
     }
 
     function bootstrapSelect() {
-        $('.selectpicker').selectpicker({
-            style: 'btn-primary',
-            size: 4
-        });
+        // $('.selectpicker').selectpicker({
+        //     style: 'btn-primary',
+        //     size: 4
+        // });
     }
 
     function magnificPopup() {

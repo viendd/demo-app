@@ -1,7 +1,7 @@
 <div class="ps-shoes--carousel">
     <div class="ps-shoe">
         @php
-            $mediaFeature = $product->mediaFeature();
+            $mediaFeature = $product->mediaFeature;
             $mediaDefault = asset('images/default_product_image.png');
             $routeProductDetail = route('client.product.show', ['product' => $product->slug])
 

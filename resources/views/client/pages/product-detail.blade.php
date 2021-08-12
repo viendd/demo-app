@@ -33,7 +33,7 @@
                         </div>
                         <div class="ps-product__thumbnail--mobile">
                             <div class="ps-product__main-img">
-                                <img class="preview_image_mobile" src="{{asset($product->mediaFeature()->media)}}" alt="">
+                                <img class="preview_image_mobile" src="{{asset($product->mediaFeature->media)}}" alt="">
                             </div>
                             <div class="ps-product__preview owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="20" data-owl-nav="true" data-owl-dots="false" data-owl-item="3" data-owl-item-xs="3" data-owl-item-sm="3" data-owl-item-md="3" data-owl-item-lg="3" data-owl-duration="1000" data-owl-mousedrag="on">
                                 @foreach($medias as $media)
@@ -55,36 +55,20 @@
                             <p class="ps-product__category">
                                 <a href="#"> {{optional($product->category)->name}}</a>
                             </p>
-                            <h3 class="ps-product__price">{{formatMoneyComma($product->price_sell, 'đ')}} <del>{{formatMoneyComma($product->price_marketing, 'đ')}}</del></h3>
+
+                            @foreach($product->sizes as $key => $size)
+                                <h3 @if($key != 0) style="display: none" @endif class="ps-product__price ps-product__price_{{$size->id}}">{{formatMoneyComma(sizeProductByIdSize($product, $size->id)->price_sell, 'đ')}} <del>{{formatMoneyComma(sizeProductByIdSize($product, $size->id)->price_marketing, 'đ')}}</del></h3>
+                            @endforeach
                             <div class="ps-product__block ps-product__quickview">
                                 <h4>QUICK REVIEW</h4>
                                 <p>{!! $product->description !!}</p>
                             </div>
-{{--                            <div class="ps-product__block ps-product__style">--}}
-{{--                                <h4>CHOOSE YOUR STYLE</h4>--}}
-{{--                                <ul>--}}
-{{--                                    <li><a href="product-detail.html"><img src="{{asset('')}}images/shoe/sidebar/1.jpg" alt=""></a></li>--}}
-{{--                                    <li><a href="product-detail.html"><img src="{{asset('')}}images/shoe/sidebar/2.jpg" alt=""></a></li>--}}
-{{--                                    <li><a href="product-detail.html"><img src="{{asset('')}}images/shoe/sidebar/3.jpg" alt=""></a></li>--}}
-{{--                                    <li><a href="product-detail.html"><img src="{{asset('')}}images/shoe/sidebar/2.jpg" alt=""></a></li>--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
                             <div class="ps-product__block ps-product__size">
                                 <h4>CHOOSE SIZE<a href="#">Size chart</a></h4>
-                                <select class="ps-select selectpicker">
-                                    <option value="1">Select Size</option>
-                                    <option value="2">4</option>
-                                    <option value="3">4.5</option>
-                                    <option value="3">5</option>
-                                    <option value="3">6</option>
-                                    <option value="3">6.5</option>
-                                    <option value="3">7</option>
-                                    <option value="3">7.5</option>
-                                    <option value="3">8</option>
-                                    <option value="3">8.5</option>
-                                    <option value="3">9</option>
-                                    <option value="3">9.5</option>
-                                    <option value="3">10</option>
+                                <select class="ps-select selectpicker size_product" name="size_product_selected">
+                                    @foreach($product->sizes as $size)
+                                        <option value="{{$size->id}}">{{$size->size}} g</option>
+                                    @endforeach
                                 </select>
                                 <div class="form-group">
                                     <input class="form-control" type="number" value="1">
@@ -217,6 +201,10 @@
         $(document).ready(function (){
             $('.image_mobile').click(function (){
                 $('.preview_image_mobile').attr('src', $(this).attr('src'))
+            })
+            $('.size_product').change(function (){
+                $('.ps-product__price').hide()
+                $('.ps-product__price_' + $(this).val()).css("display", "block")
             })
         })
     </script>

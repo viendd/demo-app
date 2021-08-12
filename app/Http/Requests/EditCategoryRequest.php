@@ -26,6 +26,7 @@ class EditCategoryRequest extends FormRequest
     {
         $id = request()->input('id');
         $categories = Category::whereNotIn('id', [$id])->get()->pluck('id')->toArray();
+        array_push($categories, 0);
         return [
             'name' => 'required|unique:categories,name,'.$id,
             'active' => 'required',
